@@ -5,6 +5,9 @@ let rightpoints = [];
 let midx = 80;
 let midy = 370;
 let delay = 200;
+let i = 4;
+let j = 0;
+
 let steps = [
   () => drawButterflyOutline(),
   () => drawButterfly(),
@@ -13,12 +16,8 @@ let steps = [
   () => {
     drawButterfly();
     drawFlame();
-  }
+  },
 ];
-  
-//   console.log(cycle);
-
-
 
 function preload() {
   butterflyfont = loadFont("Butterflies.ttf");
@@ -27,7 +26,7 @@ function preload() {
 
 function setup() {
   createCanvas(600, 440);
-  frameRate();
+  frameRate(8);
 
   points = butterflyfont.textToPoints("B", midx, midy, 350, {
     sampleFactor: 0.28,
@@ -45,48 +44,65 @@ function setup() {
   });
 }
 
-
-
 function draw() {
   background("black");
+  const size = steps.length - 1;
 
-  steps[0]();
-
- function oncycle() { 
-    for (let i=1; i<5; i++){
-    if (millis() > i * delay) {
-    steps[i]();
-  };
+  for (let k = 0; k <= Math.abs(i - size); k++) {
+    steps[k]();
   }
-}
-
-oncycle();
-
-// let reverseDelay = (4 + 1) * delay; // Total time to display all steps
   
-//   if (millis() > reverseDelay) {
-//     for (let i = 4; i >= 1; i--) {
-//       if (millis() > reverseDelay + (4 - i) * delay) {
-//         undoStep(i); // Remove step
-//       }
-//     }
-//   }
-// }
+  if (i == size*2) {
+    if (j == 2) {
+      j = 0;
+      i = 0;
+    } else {
+      j++;
+    }
+  } else {
+    i++;
+  }
+  
 
-// function undoStep(stepIndex) {
-//   // Code to remove the layers or undo the effects of the step
-// }
+  // if (i == 6) {
+  //   j = 4;
+  // }
 
+  // if (j >= 0) {
+  //   steps[0]();
+  //   i = 0
+  // };
+
+  // if (j >= 1) {
+  //   steps[1]();
+  //   i = 0
+  // };
+
+  // if (j >= 2) {
+  //   steps[2]();
+  //   i = 0
+  // };
+
+  // if (j >= 3) {
+  //   steps[3]();
+  //   i = 0
+  // };
+
+  // if (j >= 4) {
+  //   steps[4]();
+  //   i = 0
+  // };
+
+  // j--;
+
+  // if (j == 0) {
+  //   i = 0;
+  // };
 }
-/* 
-1. draw butterfly in darker red
-2. after small delay apply blur to canvas
-3. after another small delay redraw butterfly in bright red
-4. after another dmall delay draw flames onto canvas */
 
 function drawButterflyOutline() {
   points.forEach((point) => {
-    fill(168, 125, 133);
+    fill(106, 77, 89);
     rect(point.x, point.y, 5);
     strokeWeight(0);
   });
@@ -94,7 +110,7 @@ function drawButterflyOutline() {
 
 function drawButterfly() {
   points.forEach((point) => {
-    fill("pink");
+    fill(255, 179, 210);
     rect(point.x, point.y, 5);
     strokeWeight(0);
   });
@@ -103,7 +119,7 @@ function drawButterfly() {
 function drawFlame() {
   // left flame
   leftpoints.forEach((point) => {
-    fill("red");
+    fill(250, 0, 60);
     rect(point.x, point.y, 5);
     strokeWeight(0);
   });
@@ -118,6 +134,6 @@ function drawFlame() {
 
 function applyBlur(strength) {
   for (let i = 0; i < strength; i++) {
-    filter(BLUR, 4); // Apply blur filter multiple times for stronger effect
+    filter(BLUR, 4);
   }
-};
+}
