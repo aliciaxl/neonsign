@@ -10,9 +10,10 @@ let j = 0;
 
 let steps = [
   () => drawButterflyOutline(),
+  () => drawButterflyOutline(),
   () => drawButterfly(),
   () => drawFlame(),
-  () => applyBlur(2),
+  () => applyBlur(4),
   () => {
     drawButterfly();
     drawFlame();
@@ -26,19 +27,19 @@ function preload() {
 
 function setup() {
   createCanvas(600, 440);
-  frameRate(8);
+  frameRate(6);
 
   points = butterflyfont.textToPoints("B", midx, midy, 350, {
     sampleFactor: 0.28,
     simplifyThreshold: 0,
   });
 
-  leftpoints = firefont.textToPoints("N", midx - 30, midy + 20, 280, {
+  leftpoints = firefont.textToPoints("N", midx - 26, midy + 18, 280, {
     sampleFactor: 0.28,
     simplifyThreshold: 0,
   });
 
-  rightpoints = firefont.textToPoints("N", midx - 16, midy + 18, 280, {
+  rightpoints = firefont.textToPoints("N", midx - 14, midy + 18, 280, {
     sampleFactor: 0.28,
     simplifyThreshold: 0,
   });
@@ -46,6 +47,7 @@ function setup() {
 
 function draw() {
   background("black");
+
   const size = steps.length - 1;
 
   for (let k = 0; k <= Math.abs(i - size); k++) {
@@ -62,42 +64,6 @@ function draw() {
   } else {
     i++;
   }
-  
-
-  // if (i == 6) {
-  //   j = 4;
-  // }
-
-  // if (j >= 0) {
-  //   steps[0]();
-  //   i = 0
-  // };
-
-  // if (j >= 1) {
-  //   steps[1]();
-  //   i = 0
-  // };
-
-  // if (j >= 2) {
-  //   steps[2]();
-  //   i = 0
-  // };
-
-  // if (j >= 3) {
-  //   steps[3]();
-  //   i = 0
-  // };
-
-  // if (j >= 4) {
-  //   steps[4]();
-  //   i = 0
-  // };
-
-  // j--;
-
-  // if (j == 0) {
-  //   i = 0;
-  // };
 }
 
 function drawButterflyOutline() {
