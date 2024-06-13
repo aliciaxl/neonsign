@@ -50,20 +50,24 @@ function draw() {
 
   const size = steps.length - 1;
 
-  for (let k = 0; k <= Math.abs(i - size); k++) {
-    steps[k]();
-  }
-  
-  if (i == size*2) {
-    if (j == 2) {
-      j = 0;
-      i = 0;
-    } else {
-      j++;
+  function blinking() {
+    for (let k = 0; k <= Math.abs(i - size); k++) {
+      steps[k]();
     }
-  } else {
-    i++;
+
+    if (i == size * 2) {
+      if (j == 2) {
+        j = 0;
+        i = 0;
+      } else {
+        j++;
+      }
+    } else {
+      i++;
+    }
   }
+
+  blinking();
 }
 
 function drawButterflyOutline() {
